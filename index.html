@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0e2a22">
+<link rel="icon" href="data:,">
+<title>Codes im Mittelalter | Klasse 6C</title>
+<style>
+:root{
+  --p-paper:oklch(93.6% .025 91);--p-paper-2:oklch(90.3% .023 89);--p-paper-3:oklch(85.4% .02 88);
+  --p-ink:oklch(25% .045 166);--p-chart:oklch(89.6% .2 119);--p-mint:oklch(85.7% .09 150);--p-yellow:oklch(82.4% .15 82);
+  --surface:var(--p-paper);--surface-soft:var(--p-paper-2);--surface-strong:var(--p-paper-3);
+  --text:var(--p-ink);--accent:var(--p-chart);--success:var(--p-mint);--focus:var(--p-yellow);
+  --line:color-mix(in oklch,var(--p-ink) 18%,transparent);--muted:oklch(36% .04 166);
+  --radius:20px;--font-body:"Avenir Next","Trebuchet MS",sans-serif;--font-display:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:19.2px;scroll-behavior:smooth;scroll-padding-top:24px}
+body{min-height:100dvh;background:var(--surface);color:var(--text);font:1rem/1.62 var(--font-body);-webkit-font-smoothing:antialiased}
+button,input,textarea,select{font:inherit;color:inherit}
+button,a,summary,label{touch-action:manipulation}
+button{cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:4px}
+.skip{position:fixed;left:16px;top:12px;z-index:20;padding:12px 16px;background:var(--accent);transform:translateY(-160%)}
+.skip:focus{transform:translateY(0)}
+.sidebar{display:none}
+.mobile-top{padding:20px 16px 0;max-width:880px;margin:auto}
+.brandline{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.brand{font-family:var(--font-display);font-size:1.2rem;line-height:1.2}
+.class-tag{flex:none;padding:4px 12px;border:1px solid var(--text);border-radius:999px;font-size:.78rem;font-weight:700}
+.mobile-menu{margin:12px 0 0;border-bottom:1px solid var(--line)}
+.mobile-menu summary{min-height:48px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-weight:700;list-style:none}
+.mobile-menu summary::-webkit-details-marker{display:none}
+.mobile-menu summary::after{content:"+";font-size:1.4rem}
+.mobile-menu[open] summary::after{content:"−"}
+.mobile-links{display:grid;gap:8px;padding:0 0 16px}
+.mobile-links a{padding:12px 14px;background:var(--surface-soft);border-radius:12px;text-decoration:none}
+.content{max-width:880px;margin:0 auto;padding:28px 16px 64px}
+.hero{padding:22px 0 36px}
+.kicker{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+h1,h2,h3{font-family:var(--font-display);font-weight:400;line-height:1.12;text-wrap:balance}
+h1{font-size:clamp(2.25rem,7vw,4.6rem);letter-spacing:-.035em;max-width:14ch;margin:14px 0 20px}
+h2{font-size:clamp(1.75rem,4vw,2.55rem);letter-spacing:-.025em;margin:14px 0}
+h3{font-family:var(--font-body);font-size:1.05rem;font-weight:700;line-height:1.35}
+.lead{font-size:1.08rem;max-width:64ch}
+.identity{display:grid;gap:12px;margin:26px 0;padding:20px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.identity label,.field label,.task-label{display:block;font-weight:700;margin-bottom:7px}
+.identity input{width:100%}
+.howto{display:grid;gap:8px;margin-top:20px}
+.howto p{padding-left:22px;position:relative}
+.howto p::before{content:"–";position:absolute;left:4px;font-weight:700}
+input,textarea,select{width:100%;border:1.5px solid var(--text);border-radius:12px;background:color-mix(in oklch,var(--surface) 75%,white);padding:12px 14px;min-height:50px}
+textarea{min-height:112px;resize:vertical;line-height:1.5;overflow:hidden}
+input:focus,textarea:focus,select:focus{border-color:var(--text)}
+input[readonly]{background:var(--surface-soft)}
+.btn{min-height:48px;border:1.5px solid var(--text);border-radius:999px;padding:10px 18px;background:var(--accent);font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .18s ease-out,box-shadow .18s ease-out}
+.btn:hover{transform:translateY(-2px);box-shadow:0 4px 0 var(--text)}
+.btn:active{transform:translateY(0);box-shadow:none}
+.btn.secondary{background:transparent}
+.btn.small{font-size:.86rem;padding:8px 16px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.save-note{font-size:.8rem;color:var(--muted);margin-top:16px}
+.mission{padding:18px 0 40px;scroll-margin-top:20px}
+.divider{min-height:54px;border-radius:999px;background:var(--text);color:var(--surface);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 20px;font-size:.88rem;font-weight:700}
+.divider span:last-child{font-variant-numeric:tabular-nums}
+.intro{max-width:68ch;margin-bottom:20px}
+.info{margin:18px 0;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.info strong{font-weight:700}
+.question{padding:22px 0;border-bottom:1px solid var(--line)}
+.question:last-child{border-bottom:0}
+.task-label .number{display:inline-block;min-width:42px;color:var(--muted)}
+.hint{font-size:.86rem;color:var(--muted);margin:-2px 0 10px 42px}
+.task-label+.hint{margin-top:-4px}
+.field{margin-top:12px}
+.feedback{display:none;margin-top:12px;padding:12px 14px;border-radius:12px;font-weight:700}
+.feedback.show{display:block;background:var(--surface-soft)}
+.feedback.success{background:var(--success)}
+.feedback.retry{background:var(--focus)}
+.choices{display:grid;gap:10px;margin:12px 0}
+.choice{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border:1px solid var(--line);border-radius:12px;cursor:pointer}
+.choice:has(input:checked){border:2px solid var(--text);background:var(--surface-soft)}
+.choice input{width:24px;height:24px;min-height:24px;flex:none;margin-top:3px;accent-color:var(--text)}
+.terms{display:grid;gap:0;margin:18px 0;border-top:1px solid var(--line)}
+.term{display:grid;grid-template-columns:minmax(110px,.6fr) 1.4fr;gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}
+.alphabet{display:grid;grid-template-columns:repeat(auto-fit,minmax(46px,1fr));gap:6px;margin:16px 0}
+.pair{border:1px solid var(--line);border-radius:8px;text-align:center;padding:5px 2px;font-size:.82rem;line-height:1.35;font-variant-numeric:tabular-nums}
+.pair span{display:block}.pair span:first-child{font-weight:700;border-bottom:1px solid var(--line)}
+details.helper{margin:18px 0;border:1px solid var(--text);border-radius:16px;background:var(--surface-soft);overflow:hidden}
+details.helper summary{min-height:54px;padding:14px 18px;font-weight:700;cursor:pointer;list-style:none}
+details.helper summary::-webkit-details-marker{display:none}
+details.helper summary::after{content:" +";float:right}
+details.helper[open] summary::after{content:" −"}
+.helper-body{padding:4px 18px 18px}
+.helper-body textarea{background:var(--surface)}
+.output{min-height:54px;margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--text);color:var(--surface);overflow-wrap:anywhere;font-weight:700}
+.code-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+.code-cell{border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center;background:var(--surface-soft)}
+.code-cell label{font-weight:700;display:block;margin-bottom:6px}
+.code-cell input{text-align:center;font-size:1.35rem;padding:6px;min-height:52px}
+.inline-check{display:grid;gap:10px}
+.finished{margin-top:32px;padding:24px 0;border-top:2px solid var(--text);text-align:center}
+.finished h2{margin-top:0}
+footer{padding:22px 0 0;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted)}
+.progress-wrap{margin:20px 0}
+.progress-label{display:flex;justify-content:space-between;gap:12px;font-size:.8rem;margin-bottom:8px}
+.progress-track{height:10px;background:var(--surface-strong);border-radius:999px;overflow:hidden}
+.progress-bar{height:100%;width:0;background:var(--accent);transition:width .2s ease-out}
+.nav-status{margin-top:18px;font-size:.8rem;color:var(--muted)}
+@media(min-width:560px){.identity{grid-template-columns:1.5fr 1fr}.identity .class-fixed{grid-column:1/-1}.code-grid{grid-template-columns:repeat(8,1fr)}}
+@media(min-width:1000px){
+  .mobile-top{display:none}.app-shell{display:grid;grid-template-columns:240px minmax(0,1fr);max-width:1440px;margin:auto}
+  .sidebar{display:block;position:sticky;top:0;height:100dvh;padding:28px 20px;border-right:1px solid var(--line);overflow-y:auto}
+  .sidebar .brandline{display:block;padding-bottom:20px}.sidebar .class-tag{display:inline-block;margin-top:12px}
+  .side-nav{display:grid;gap:10px;margin-top:20px}.side-nav a{display:block;padding:13px 14px;border-radius:14px;background:var(--surface-soft);text-decoration:none;line-height:1.35;border:1px solid transparent}
+  .side-nav a span{display:block;font-size:.72rem;font-weight:700;color:var(--muted);margin-bottom:3px}
+  .side-nav a.active{background:var(--accent);border-color:var(--text)}
+  .side-nav a.active span{color:var(--text)}
+  .side-actions{display:grid;gap:10px;margin-top:18px}.side-actions .btn{width:100%;font-size:.82rem}
+  .content{padding:42px 44px 80px;max-width:940px}.mission{padding-top:28px}
+}
+@media(max-width:380px){.content{padding-left:12px;padding-right:12px}.code-grid{gap:6px}.term{grid-template-columns:1fr;gap:2px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+@media print{
+  @page{margin:16mm}html{font-size:14pt}body{background:white}.sidebar,.mobile-top,.btn,.helper,.skip,.progress-wrap,.nav-status{display:none!important}
+  .app-shell{display:block}.content{max-width:none;padding:0}.hero{padding-top:0}h1{font-size:30pt}.mission{break-before:page;padding-top:0}.mission:first-of-type{break-before:auto}
+  .divider{background:white;color:var(--text);border:1px solid var(--text)}textarea{min-height:80px;overflow:visible}.feedback{display:none!important}.question{break-inside:avoid}.info{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Zu den Aufgaben springen</a>
+<div class="app-shell">
+<aside class="sidebar" aria-label="Seitennavigation">
+  <div class="brandline"><div class="brand">Codes im<br>Mittelalter</div><span class="class-tag">Klasse 6C</span></div>
+  <nav class="side-nav" aria-label="Aufträge">
+    <a href="#auftrag1" class="active"><span>Auftrag 1</span>Siegel oder Code?</a>
+    <a href="#auftrag2"><span>Auftrag 2</span>Caesar-Code</a>
+    <a href="#auftrag3"><span>Auftrag 3</span>Partner-Code</a>
+    <a href="#auftrag4"><span>Auftrag 4</span>Eigener Code</a>
+  </nav>
+  <div class="progress-wrap"><div class="progress-label"><span>Antwortfelder</span><span data-progress-text>0 %</span></div><div class="progress-track"><div class="progress-bar" data-progress-bar></div></div></div>
+  <div class="side-actions"><button class="btn small" type="button" data-print>Drucken / PDF</button><button class="btn small secondary" type="button" data-reset>Antworten löschen</button></div>
+  <p class="nav-status" data-save-status role="status">Antworten werden auf diesem Gerät gespeichert.</p>
+</aside>
+<div>
+<header class="mobile-top">
+  <div class="brandline"><div class="brand">Codes im Mittelalter</div><span class="class-tag">Klasse 6C</span></div>
+  <details class="mobile-menu"><summary>Aufträge und Speichern</summary><nav class="mobile-links" aria-label="Aufträge mobil">
+    <a href="#auftrag1">Auftrag 1: Siegel oder Code?</a><a href="#auftrag2">Auftrag 2: Caesar-Code</a><a href="#auftrag3">Auftrag 3: Partner-Code</a><a href="#auftrag4">Auftrag 4: Eigener Code</a>
+  </nav><div class="progress-wrap"><div class="progress-label"><span>Antwortfelder</span><span data-progress-text>0 %</span></div><div class="progress-track"><div class="progress-bar" data-progress-bar></div></div></div><div class="actions"><button class="btn small" type="button" data-print>Drucken / PDF</button><button class="btn small secondary" type="button" data-reset>Antworten löschen</button></div><p class="save-note" data-save-status role="status">Antworten werden auf diesem Gerät gespeichert.</p></details>
+</header>
+<main class="content" id="main">
+<header class="hero" id="top">
+  <div class="kicker">Informatik · Klasse 6C</div>
+  <h1>Der Geheimauftrag auf Burg Rabenfels</h1>
+  <p class="lead">Ein Bote hat einen Brief. Andere dürfen den Brief nicht lesen. Hilf ihm: Mach aus dem Text einen Geheimcode.</p>
+  <div class="identity">
+    <div><label for="studentName">Dein Name</label><input id="studentName" data-save autocomplete="name" placeholder="Name eingeben"></div>
+    <div><label for="workDate">Datum</label><input id="workDate" data-save type="date"></div>
+    <div class="class-fixed"><label for="className">Klasse</label><input id="className" value="6C" readonly aria-readonly="true"></div>
+  </div>
+  <div class="howto" aria-label="Arbeitshinweise">
+    <p>Schreibe deine Antworten in die Felder.</p>
+    <p>Drücke auf <strong>Prüfen</strong>. Dann siehst du, ob deine Antwort richtig ist.</p>
+    <p>Deine Antworten bleiben auf diesem iPad. Am Ende kannst du deine Arbeit über <strong>Drucken / PDF</strong> sichern.</p>
+  </div>
+</header>
+<section class="mission" id="auftrag1" aria-labelledby="title1">
+  <div class="divider"><span>Auftrag 1 · Siegel oder Code?</span><span>1 / 4</span></div>
+  <h2 id="title1">Was macht das Siegel?</h2>
+  <p class="intro">Lies den Text. Dann beantworte die Fragen.</p>
+  <div class="info">Ein Bote hat einen Brief. Ein <strong>Wachssiegel</strong> hält den Brief zu. Ein fremder Mensch macht den Brief auf. Er liest den Brief. Dann macht er ihn wieder zu.</div>
+  <div class="question">
+    <label class="task-label" for="q11"><span class="number">1.1</span>Was kann der fremde Mensch jetzt lesen? Schreibe einen Satz.</label>
+    <textarea id="q11" data-save data-track placeholder="Der fremde Mensch kann …"></textarea>
+  </div>
+  <div class="question">
+    <div class="task-label"><span class="number">1.2</span>Was ist richtig? Wähle einen Satz.</div>
+    <div class="choices" role="radiogroup" aria-label="Aussagen zum Siegel">
+      <label class="choice"><input type="radio" name="seal" value="a" data-save><span>Das Siegel macht aus den Buchstaben einen Geheimcode.</span></label>
+      <label class="choice"><input type="radio" name="seal" value="b" data-save><span>Das Siegel zeigt: Der Brief war zu. Man kann den Brief aber trotzdem lesen.</span></label>
+      <label class="choice"><input type="radio" name="seal" value="c" data-save><span>Mit einem Siegel kann niemand den Brief lesen.</span></label>
+    </div>
+    <button class="btn small" type="button" data-check-choice="seal" data-answer="b" data-feedback="sealFeedback">Prüfen</button>
+    <div class="feedback" id="sealFeedback" role="status"></div>
+  </div>
+  <div class="terms" aria-label="Wichtige Wörter">
+    <div class="term"><strong>Klartext</strong><span>Den Text kannst du normal lesen.</span></div>
+    <div class="term"><strong>Geheimtext</strong><span>Der Text wurde verändert.</span></div>
+    <div class="term"><strong>Schlüssel</strong><span>Er sagt dir, wie der Text verändert wurde. Zum Beispiel: 3 Schritte.</span></div>
+  </div>
+</section>
+
+<section class="mission" id="auftrag2" aria-labelledby="title2">
+  <div class="divider"><span>Auftrag 2 · Caesar-Code</span><span>2 / 4</span></div>
+  <h2 id="title2">Der Caesar-Code</h2>
+  <p class="intro">Der Caesar-Code ist sehr alt. Du ersetzt jeden Buchstaben durch einen anderen Buchstaben.</p>
+  <div class="info"><strong>Schlüssel 3</strong><br><strong>Verschlüsseln:</strong> Gehe 3 Schritte nach rechts. A → D, B → E, Z → C.<br><strong>Entschlüsseln:</strong> Gehe 3 Schritte nach links.<br><strong>Beispiel:</strong> BURG → EXUJ</div>
+  <p class="hint" style="margin-left:0"><strong>Die Tabelle hilft dir:</strong> Oben steht der normale Buchstabe. Unten steht sein Geheimcode.</p>
+  <div class="alphabet" aria-label="Alphabet mit Caesar-Schlüssel 3" id="alphabetKey3"></div>
+  <div class="question inline-check">
+    <div><label class="task-label" for="q21"><span class="number">2.1</span>Lies <strong>EXUJ</strong>. Gehe bei jedem Buchstaben 3 Schritte nach links. Was steht da?</label><input id="q21" data-save data-track autocapitalize="characters" autocomplete="off" placeholder="Dein Klartext"></div>
+    <div><button class="btn small" type="button" data-check-target="q21" data-answer="BURG" data-feedback="f21">Prüfen</button><div class="feedback" id="f21" role="status"></div></div>
+  </div>
+  <div class="question inline-check">
+    <div><label class="task-label" for="q22"><span class="number">2.2</span>Schreibe <strong>BOTEN</strong> als Geheimcode. Gehe bei jedem Buchstaben 3 Schritte nach rechts.</label><input id="q22" data-save data-track autocapitalize="characters" autocomplete="off" placeholder="Dein Geheimcode"></div>
+    <div><button class="btn small" type="button" data-check-target="q22" data-answer="ERWHQ" data-feedback="f22">Prüfen</button><div class="feedback" id="f22" role="status"></div></div>
+  </div>
+  <div class="question inline-check">
+    <div><label class="task-label" for="q23"><span class="number">2.3</span>Lies <strong>ZLU NRPPHQ</strong>. Gehe bei jedem Buchstaben 3 Schritte nach links. Was steht da?</label><input id="q23" data-save data-track autocapitalize="characters" autocomplete="off" placeholder="Dein Klartext"></div>
+    <div><button class="btn small" type="button" data-check-target="q23" data-answer="WIR KOMMEN" data-feedback="f23">Prüfen</button><div class="feedback" id="f23" role="status"></div></div>
+  </div>
+  <details class="helper"><summary>Caesar-Hilfe öffnen</summary><div class="helper-body">
+    <p>Diese Hilfe kannst du in Auftrag 3 benutzen.</p>
+    <p><strong>So geht es:</strong><br>1. Schreibe deinen Text.<br>2. Wähle einen Schlüssel.<br>3. Drücke auf einen Knopf.</p>
+    <p>Schreibe Ä als AE, Ö als OE, Ü als UE und ß als SS.</p>
+    <div class="field"><label for="caesarText">Dein Text</label><textarea id="caesarText" placeholder="Schreibe hier deinen Text"></textarea></div>
+    <div class="field"><label for="caesarKey">Schlüssel</label><select id="caesarKey"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></div>
+    <div class="actions"><button class="btn small" type="button" data-caesar="encode">Verschlüsseln</button><button class="btn small secondary" type="button" data-caesar="decode">Entschlüsseln</button></div>
+    <div class="output" id="caesarOutput" role="status" aria-live="polite">Das Ergebnis erscheint hier.</div>
+  </div></details>
+</section>
+
+<section class="mission" id="auftrag3" aria-labelledby="title3">
+  <div class="divider"><span>Auftrag 3 · Partner-Code</span><span>3 / 4</span></div>
+  <h2 id="title3">Schick einen Geheimcode</h2>
+  <p class="intro">Arbeitet zu zweit. Ihr könnt die Caesar-Hilfe in Auftrag 2 benutzen.</p>
+  <div class="question">
+    <h3>Dein Geheimcode</h3>
+    <p class="hint">1. Denk dir zwei kurze Wörter aus. Zum Beispiel: WIR KOMMEN.<br>2. Wähle einen Schlüssel von 1 bis 5.<br>3. Verschlüssele deine Wörter.</p>
+    <div class="field"><label for="ownPlain">Dein normaler Text (Klartext)</label><input id="ownPlain" data-save data-track placeholder="Zum Beispiel: WIR KOMMEN"></div>
+    <div class="field"><label for="ownKey">Dein Schlüssel</label><select id="ownKey" data-save><option value="">Wähle einen Schlüssel</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
+    <div class="field"><label for="ownCipher">Dein Geheimcode</label><textarea id="ownCipher" data-save data-track autocapitalize="characters" placeholder="Schreibe hier deinen Geheimcode"></textarea></div>
+  </div>
+  <div class="question">
+    <h3>Der Geheimcode von deinem Partner</h3>
+    <p class="hint">1. Gib deinem Partner nur den Geheimcode und den Schlüssel.<br>2. Dein Partner macht daraus wieder den Klartext.<br>3. Dann wechselt ihr.</p>
+    <div class="field"><label for="partnerCipher">Geheimcode von deinem Partner</label><textarea id="partnerCipher" data-save data-track autocapitalize="characters" placeholder="Schreibe hier den Geheimcode"></textarea></div>
+    <div class="field"><label for="partnerKey">Schlüssel von deinem Partner</label><select id="partnerKey" data-save><option value="">Wähle den Schlüssel</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
+    <div class="field"><label for="partnerPlain">Normaler Text (Klartext)</label><input id="partnerPlain" data-save data-track placeholder="Was steht in der Nachricht?"></div>
+  </div>
+  <div class="question">
+    <div class="task-label"><span class="number">3.1</span>Warum kann man den Caesar-Code schnell knacken?</div>
+    <div class="choices" role="radiogroup" aria-label="Sicherheit des Caesar-Codes">
+      <label class="choice"><input type="radio" name="security" value="a" data-save><span>Man kann die wenigen Schlüssel einfach ausprobieren.</span></label>
+      <label class="choice"><input type="radio" name="security" value="b" data-save><span>Jeder Geheimcode hat nur drei Buchstaben.</span></label>
+      <label class="choice"><input type="radio" name="security" value="c" data-save><span>Das Wachssiegel fehlt.</span></label>
+    </div>
+    <button class="btn small" type="button" data-check-choice="security" data-answer="a" data-feedback="securityFeedback">Prüfen</button><div class="feedback" id="securityFeedback" role="status"></div>
+  </div>
+</section>
+
+<section class="mission" id="auftrag4" aria-labelledby="title4">
+  <div class="divider"><span>Auftrag 4 · Eigener Code</span><span>4 / 4</span></div>
+  <h2 id="title4">Mach deinen eigenen Code</h2>
+  <p class="intro">Du brauchst diese 8 Zeichen: <strong>! ? + * # @ % &amp;</strong><br>Jedes Zeichen darf nur einmal vorkommen.</p>
+  <div class="question">
+    <div class="task-label"><span class="number">4.1</span>Schreibe unter jeden Buchstaben ein Zeichen. Zum Beispiel: Unter A kann ! stehen.</div>
+    <div class="code-grid" id="ownCodeGrid" aria-label="Eigener Zeichencode"></div>
+    <button class="btn small" type="button" data-check-code>Code prüfen</button><div class="feedback" id="codeFeedback" role="status"></div>
+  </div>
+  <div class="question inline-check">
+    <div><label class="task-label" for="ownBach"><span class="number">4.2</span>Schreibe <strong>BACH</strong> mit deinem Code. Schau für jeden Buchstaben in deiner Tabelle nach.</label><input id="ownBach" data-save data-track autocomplete="off" placeholder="Dein Geheimcode"></div>
+    <div><button class="btn small" type="button" data-check-own="BACH" data-target="ownBach" data-feedback="bachFeedback">Prüfen</button><div class="feedback" id="bachFeedback" role="status"></div></div>
+  </div>
+  <div class="question">
+    <label class="task-label" for="q43"><span class="number">4.3</span>Wie kann dein Partner deinen Code lesen? Schreibe zwei kurze Sätze.</label>
+    <textarea id="q43" data-save data-track placeholder="Suche das Zeichen in der Tabelle. Dann schreibe …"></textarea>
+  </div>
+  <div class="info"><strong>Kurzcheck – jetzt bist du dran:</strong><br>Verschlüsseln = nach rechts.<br>Entschlüsseln = nach links.</div>
+  <div class="question inline-check">
+    <div><label class="task-label" for="q44"><span class="number">4.4</span>Schreibe <strong>CODE</strong> als Geheimcode. Schlüssel 2: Gehe 2 Schritte nach rechts.</label><input id="q44" data-save data-track autocapitalize="characters" placeholder="Dein Geheimcode"></div>
+    <div><button class="btn small" type="button" data-check-target="q44" data-answer="EQFG" data-feedback="f44">Prüfen</button><div class="feedback" id="f44" role="status"></div></div>
+  </div>
+  <div class="question inline-check">
+    <div><label class="task-label" for="q45"><span class="number">4.5</span>Lies <strong>OCP</strong>. Schlüssel 2: Gehe 2 Schritte nach links. Was steht da?</label><input id="q45" data-save data-track autocapitalize="characters" placeholder="Dein Klartext"></div>
+    <div><button class="btn small" type="button" data-check-target="q45" data-answer="MAN" data-feedback="f45">Prüfen</button><div class="feedback" id="f45" role="status"></div></div>
+  </div>
+</section>
+
+<section class="finished" aria-labelledby="finishedTitle">
+  <h2 id="finishedTitle">Geschafft?</h2>
+  <p>Schau dir deine Antworten an. Dann drucke deine Arbeit oder speichere sie als PDF. Auf dem iPad kannst du das PDF auch teilen.</p>
+  <div class="actions" style="justify-content:center"><button class="btn" type="button" data-print>Drucken / PDF</button><a class="btn secondary" href="#top">Zum Anfang</a></div>
+</section>
+<footer>Codes im Mittelalter · Informatik · Klasse 6C<br>Deine Antworten bleiben nur auf diesem iPad in diesem Browser. Es werden keine Daten verschickt.</footer>
+</main>
+</div>
+</div>
+<script>
+(() => {
+  "use strict";
+  const STORAGE_KEY = "codes-mittelalter-6c-v1";
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const allowedSymbols = ["!", "?", "+", "*", "#", "@", "%", "&"];
+  const $ = (selector, root = document) => root.querySelector(selector);
+  const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+
+  $("#alphabetKey3").innerHTML = [...alphabet].map((letter, index) => {
+    const cipher = alphabet[(index + 3) % 26];
+    return `<div class="pair" aria-label="${letter} wird ${cipher}"><span>${letter}</span><span>${cipher}</span></div>`;
+  }).join("");
+
+  $("#ownCodeGrid").innerHTML = [..."ABCDEFGH"].map(letter => `
+    <div class="code-cell"><label for="code-${letter}">${letter}</label><input id="code-${letter}" data-save data-code-input="${letter}" maxlength="1" autocomplete="off" autocapitalize="off" inputmode="text" aria-label="Geheimzeichen für ${letter}"></div>`).join("");
+
+  $$('input[type="radio"][data-save]').forEach(radio => { radio.id = `${radio.name}-${radio.value}`; });
+  const savedFields = $$('[data-save]');
+  const statusNodes = $$('[data-save-status]');
+  let storageWorks = true;
+  let saveTimer;
+
+  function setStatus(text) { statusNodes.forEach(node => { node.textContent = text; }); }
+  try {
+    localStorage.setItem("codes-storage-test", "1");
+    localStorage.removeItem("codes-storage-test");
+  } catch (error) {
+    storageWorks = false;
+    setStatus("Automatisches Speichern ist nicht möglich. Bitte als PDF sichern.");
+  }
+
+  function resizeArea(area) {
+    area.style.height = "auto";
+    area.style.height = `${Math.max(112, area.scrollHeight)}px`;
+  }
+
+  function updateProgress() {
+    const fields = $$('[data-track]');
+    const done = fields.filter(field => field.value.trim().length > 0).length;
+    const percent = fields.length ? Math.round(done / fields.length * 100) : 0;
+    $$('[data-progress-text]').forEach(node => { node.textContent = `${done}/${fields.length}`; });
+    $$('[data-progress-bar]').forEach(node => { node.style.width = `${percent}%`; });
+    $$('.progress-track').forEach(node => {
+      node.setAttribute("role", "progressbar");
+      node.setAttribute("aria-label", "Ausgefüllte Antwortfelder");
+      node.setAttribute("aria-valuemin", "0");node.setAttribute("aria-valuemax", String(fields.length));node.setAttribute("aria-valuenow", String(done));
+    });
+  }
+
+  function collectData() {
+    const data = {};
+    savedFields.forEach(field => { data[field.id] = field.type === "radio" ? field.checked : field.value; });
+    return data;
+  }
+
+  function saveNow() {
+    clearTimeout(saveTimer);
+    if (!storageWorks) return;
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(collectData()));
+      setStatus("Auf diesem Gerät gespeichert.");
+    } catch (error) {
+      storageWorks = false;
+      setStatus("Speichern nicht möglich. Bitte deine Arbeit als PDF sichern.");
+    }
+  }
+
+  function scheduleSave() {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveNow, 250);
+  }
+
+  if (storageWorks) {
+    try {
+      const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+      savedFields.forEach(field => {
+        if (!(field.id in data)) return;
+        if (field.type === "radio") field.checked = Boolean(data[field.id]);
+        else field.value = data[field.id];
+      });
+      if (Object.keys(data).length) setStatus("Gespeicherte Antworten wurden geladen.");
+    } catch (error) {
+      localStorage.removeItem(STORAGE_KEY);
+      setStatus("Alte Angaben konnten nicht geladen werden. Du kannst neu beginnen.");
+    }
+  }
+
+  $$('textarea').forEach(resizeArea);
+  updateProgress();
+
+  document.addEventListener("input", event => {
+    if (event.target.matches('[data-save]')) scheduleSave();
+    if (event.target.matches('textarea')) resizeArea(event.target);
+    updateProgress();
+  });
+  document.addEventListener("change", event => {
+    if (event.target.matches('[data-save]')) scheduleSave();
+    updateProgress();
+  });
+
+  function normalized(value) {
+    return String(value).trim().toUpperCase().replaceAll("Ä", "AE").replaceAll("Ö", "OE").replaceAll("Ü", "UE").replaceAll("ß", "SS").replace(/\s+/g, " ");
+  }
+
+  function showFeedback(id, message, success = false) {
+    const box = document.getElementById(id);
+    box.textContent = message;
+    box.className = `feedback show ${success ? "success" : "retry"}`;
+  }
+
+  $$('[data-check-target]').forEach(button => button.addEventListener("click", () => {
+    const input = document.getElementById(button.dataset.checkTarget);
+    if (!input.value.trim()) {
+      showFeedback(button.dataset.feedback, "Trage zuerst deine Antwort ein.");
+      input.focus();return;
+    }
+    const correct = normalized(input.value) === normalized(button.dataset.answer);
+    showFeedback(button.dataset.feedback, correct ? "Richtig! Gut gemacht." : "Das stimmt noch nicht. Schau auf die Schritte und versuche es noch einmal.", correct);
+  }));
+
+  $$('[data-check-choice]').forEach(button => button.addEventListener("click", () => {
+    const selected = $(`input[name="${button.dataset.checkChoice}"]:checked`);
+    if (!selected) { showFeedback(button.dataset.feedback, "Wähle zuerst einen Satz aus.");return; }
+    const correct = selected.value === button.dataset.answer;
+    showFeedback(button.dataset.feedback, correct ? "Richtig! Gut gemacht." : "Das stimmt noch nicht. Lies die Sätze noch einmal.", correct);
+  }));
+
+  function prepareGerman(value) {
+    return String(value).toUpperCase().replaceAll("Ä", "AE").replaceAll("Ö", "OE").replaceAll("Ü", "UE").replaceAll("ß", "SS");
+  }
+  function caesar(value, key, decode) {
+    const direction = decode ? -1 : 1;
+    return prepareGerman(value).replace(/[A-Z]/g, letter => alphabet[(alphabet.indexOf(letter) + direction * key + 260) % 26]);
+  }
+  $$('[data-caesar]').forEach(button => button.addEventListener("click", () => {
+    const text = $("#caesarText").value;
+    if (!text.trim()) { $("#caesarOutput").textContent = "Schreibe zuerst einen Text.";$("#caesarText").focus();return; }
+    const key = Number($("#caesarKey").value);
+    const result = caesar(text, key, button.dataset.caesar === "decode");
+    $("#caesarOutput").textContent = result;
+  }));
+
+  function readOwnCode() {
+    const inputs = $$('[data-code-input]');
+    const values = inputs.map(input => input.value.trim());
+    if (values.some(value => !value)) throw new Error("Fülle alle acht Felder aus.");
+    if (values.some(value => !allowedSymbols.includes(value))) throw new Error("Nimm nur diese Zeichen: ! ? + * # @ % &");
+    if (new Set(values).size !== values.length) throw new Error("Jedes Zeichen nur einmal. Suche die doppelten Zeichen und ändere sie.");
+    const mapping = {};
+    inputs.forEach(input => { mapping[input.dataset.codeInput] = input.value.trim(); });
+    return mapping;
+  }
+
+  $('[data-check-code]').addEventListener("click", () => {
+    try { readOwnCode();showFeedback("codeFeedback", "Super! Dein Code passt. Du kannst ihn jetzt benutzen.", true); }
+    catch (error) { showFeedback("codeFeedback", error.message); }
+  });
+
+  $$('[data-check-own]').forEach(button => button.addEventListener("click", () => {
+    try {
+      const mapping = readOwnCode();
+      const input = document.getElementById(button.dataset.target);
+      if (!input.value.trim()) { showFeedback(button.dataset.feedback, "Schreibe zuerst deinen Geheimcode.");input.focus();return; }
+      const expected = [...button.dataset.checkOwn].map(letter => mapping[letter]).join("");
+      const actual = input.value.replace(/\s+/g, "");
+      showFeedback(button.dataset.feedback, actual === expected ? "Richtig! Du hast deine Tabelle gut benutzt." : "Noch nicht. Schau bei jedem Buchstaben in deiner Tabelle nach.", actual === expected);
+    } catch (error) { showFeedback(button.dataset.feedback, error.message); }
+  }));
+
+  $$('[data-print]').forEach(button => button.addEventListener("click", () => { saveNow();window.print(); }));
+  $$('[data-reset]').forEach(button => button.addEventListener("click", () => {
+    if (!window.confirm("Willst du wirklich alle Antworten löschen?")) return;
+    if (storageWorks) localStorage.removeItem(STORAGE_KEY);
+    $$('input:not([readonly]), textarea').forEach(field => {
+      if (field.type === "radio" || field.type === "checkbox") field.checked = false;
+      else field.value = "";
+    });
+    $$('select').forEach(select => { select.selectedIndex = 0; });
+    $$('.feedback').forEach(box => { box.className = "feedback";box.textContent = ""; });
+    $("#caesarOutput").textContent = "Das Ergebnis erscheint hier.";
+    $$('textarea').forEach(resizeArea);updateProgress();setStatus("Alle Antworten wurden gelöscht.");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }));
+
+  const sections = $$('.mission');
+  const sideLinks = $$('.side-nav a');
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        sideLinks.forEach(link => {
+          const active = link.getAttribute("href") === `#${entry.target.id}`;
+          link.classList.toggle("active", active);
+          if (active) link.setAttribute("aria-current", "location");else link.removeAttribute("aria-current");
+        });
+      });
+    }, { rootMargin: "-15% 0px -65% 0px", threshold: 0 });
+    sections.forEach(section => observer.observe(section));
+  }
+  $$('.mobile-links a').forEach(link => link.addEventListener("click", () => { link.closest("details").removeAttribute("open"); }));
+  window.addEventListener("beforeprint", () => $$('textarea').forEach(resizeArea));
+})();
+</script>
+</body>
+</html>
